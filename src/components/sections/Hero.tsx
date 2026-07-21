@@ -1,5 +1,5 @@
-import { Container } from '../layout/Container'
-import { Button } from '../ui/Button'
+import { Container } from "../layout/Container";
+import { Button } from "../ui/Button";
 
 export function Hero() {
   return (
@@ -15,14 +15,15 @@ export function Hero() {
       <Container className="relative py-20 sm:py-28 lg:py-32">
         <div className="mx-auto max-w-3xl text-center">
           <p className="mb-4 inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-zinc-300">
-            AI-ready README workflow
+            ✨ Powered by AI
           </p>
           <h1 className="text-4xl font-semibold tracking-tight text-gradient sm:text-5xl lg:text-6xl">
-            Ship polished READMEs in minutes
+            Generate Professional GitHub READMEs with AI
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
-            RepoScribe turns repository context into clear, consistent documentation.
-            Describe your project once—preview a production-ready README instantly.
+            RepoScribe turns repository context into clear, consistent
+            documentation. Describe your project once—preview a production-ready
+            README instantly.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
@@ -37,18 +38,20 @@ export function Hero() {
           </div>
           <dl className="mt-14 grid grid-cols-3 gap-4 border-t border-white/5 pt-10 sm:gap-8">
             {[
-              { label: 'Setup time', value: '< 2 min' },
-              { label: 'Sections', value: '12+' },
-              { label: 'Export', value: 'Markdown' },
+              { label: "Setup time", value: "< 2 min" },
+              { label: "Sections", value: "12+" },
+              { label: "Export", value: "Markdown" },
             ].map((item) => (
               <div key={item.label}>
                 <dt className="text-xs text-zinc-500">{item.label}</dt>
-                <dd className="mt-1 text-sm font-medium text-zinc-200">{item.value}</dd>
+                <dd className="mt-1 text-sm font-medium text-zinc-200">
+                  {item.value}
+                </dd>
               </div>
             ))}
           </dl>
         </div>
       </Container>
     </section>
-  )
+  );
 }
