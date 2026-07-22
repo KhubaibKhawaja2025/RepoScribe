@@ -1,22 +1,65 @@
-import { type ReadmeRequest } from '../types/readme.js';
+import { type ReadmeRequest } from "../types/readme.js";
 
 export function generateReadme(data: ReadmeRequest) {
-    return `# ${data.projectName}
+  const lines: string[] = [];
 
-## Description
+  // Title
+  lines.push(`# ${data.projectName}`, "");
 
-${data.description}
+  // Description
+  lines.push("## Description", "", data.description, "");
 
-## Installation
+  // Features
+  if (data.sections.features) {
+    lines.push(
+      "## Features",
+      "",
+      "- Modern README generation",
+      "- Fast and easy to use",
+      "- Clean Markdown output",
+      ""
+    );
+  }
 
-${data.installation}
+  // Installation
+  if (data.sections.installation) {
+    lines.push(
+      "## Installation",
+      "",
+      data.installation,
+      ""
+    );
+  }
 
-## Usage
+  // Usage
+  if (data.sections.usage) {
+    lines.push(
+      "## Usage",
+      "",
+      data.usage,
+      ""
+    );
+  }
 
-${data.usage}
+  // Contributing
+  if (data.sections.contributing) {
+    lines.push(
+      "## Contributing",
+      "",
+      "Contributions are welcome! Feel free to open an issue or submit a pull request.",
+      ""
+    );
+  }
 
-## License
+  // License
+  if (data.sections.license) {
+    lines.push(
+      "## License",
+      "",
+      data.license,
+      ""
+    );
+  }
 
-MIT
-`;
+  return lines.join("\n");
 }
