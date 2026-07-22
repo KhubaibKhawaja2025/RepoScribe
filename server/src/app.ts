@@ -1,6 +1,7 @@
 import cors from "cors";
 import express, { type Express } from "express";
 import readmeRoutes from "./routes/readme.routes.js";
+import githubRoutes from "./routes/github.routes.js";
 
 const app: Express = express();
 
@@ -10,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api", readmeRoutes);
+app.use("/api", githubRoutes);
 
 app.get("/", (_req, res) => {
   res.json({
