@@ -3,6 +3,6 @@ import { generateReadmeController } from '../controllers/readme.controller.js';
 
 const router = Router();
 
-router.post("/generate-readme", generateReadmeController);
+router.post("/readme", generateReadmeController);
 
 export default router;

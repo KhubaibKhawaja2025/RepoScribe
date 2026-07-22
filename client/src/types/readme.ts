@@ -13,6 +13,10 @@ export type ReadmeFormData = {
   repoUrl: string
   projectName: string
   description: string
+
+  installation: string
+  usage: string
+
   techStack: string
   license: string
   tone: ReadmeTone
@@ -20,12 +24,16 @@ export type ReadmeFormData = {
 }
 
 export const defaultReadmeForm: ReadmeFormData = {
-  repoUrl: '',
-  projectName: '',
-  description: '',
-  techStack: 'React, TypeScript, Vite',
-  license: 'MIT',
-  tone: 'professional',
+  repoUrl: "",
+  projectName: "",
+  description: "",
+
+  installation: "",
+  usage: "",
+
+  techStack: "React, TypeScript, Vite",
+  license: "MIT",
+  tone: "professional",
   sections: {
     badges: true,
     features: true,

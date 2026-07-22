@@ -3,7 +3,7 @@ import { Container } from '../layout/Container'
 import { ReadmeForm } from './ReadmeForm'
 import { OutputPreview } from './OutputPreview'
 import { defaultReadmeForm } from '../../types/readme'
-import { generateMockReadme } from '../../lib/generateMockReadme'
+import { generateReadme } from '../../api/readme'
 
 export function GeneratorSection() {
   const [form, setForm] = useState(defaultReadmeForm)
@@ -11,14 +11,21 @@ export function GeneratorSection() {
   const [isGenerating, setIsGenerating] = useState(false)
   const [copied, setCopied] = useState(false)
 
-  const handleGenerate = useCallback(() => {
-    setIsGenerating(true)
-    setCopied(false)
-    window.setTimeout(() => {
-      setPreview(generateMockReadme(form))
-      setIsGenerating(false)
-    }, 450)
-  }, [form])
+const handleGenerate = useCallback(async () => {
+  setIsGenerating(true)
+  setCopied(false)
+
+  try {
+    const data = await generateReadme(form)
+
+    setPreview(data.markdown)
+  } catch (error) {
+    console.error(error)
+    alert("Failed to generate README.")
+  } finally {
+    setIsGenerating(false)
+  }
+}, [form])
 
   const handleCopy = useCallback(async () => {
     if (!preview) return
@@ -39,7 +46,7 @@ export function GeneratorSection() {
             README generator
           </h2>
           <p className="mt-3 text-sm text-zinc-500 sm:text-base">
-            Configure your README, then preview the output. Backend integration comes next.
+            Fill in your project details and generate a production-ready README instantly.
           </p>
         </div>
         <div className="mt-12 grid gap-8 lg:grid-cols-2 lg:items-start">
