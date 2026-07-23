@@ -1,4 +1,6 @@
+import { useState } from "react";
 import type { FormEvent } from "react";
+import { importRepository } from "../../api/github";
 import type { ReadmeFormData, ReadmeSections } from "../../types/readme";
 import { Input } from "../ui/Input";
 import { Textarea } from "../ui/Textarea";
@@ -28,6 +30,7 @@ export function ReadmeForm({
   onGenerate,
   isGenerating,
 }: ReadmeFormProps) {
+  const [isImporting, setIsImporting] = useState(false);
   function patch(partial: Partial<ReadmeFormData>) {
     onChange({ ...value, ...partial });
   }
@@ -38,6 +41,31 @@ export function ReadmeForm({
       sections: { ...value.sections, [key]: !value.sections[key] },
     });
   }
+  async function handleImportRepository() {
+  if (!value.repoUrl.trim()) {
+    alert("Please enter a GitHub repository URL.");
+    return;
+  }
+
+  setIsImporting(true);
+
+  try {
+    const repository = await importRepository(value.repoUrl);
+
+    onChange({
+      ...value,
+      projectName: repository.projectName,
+      description: repository.description,
+      techStack: repository.techStack,
+      license: repository.license,
+    });
+  } catch (error) {
+    console.error(error);
+    alert("Failed to import repository.");
+  } finally {
+    setIsImporting(false);
+  }
+}
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -54,12 +82,24 @@ export function ReadmeForm({
         </p>
       </div>
       <form onSubmit={handleSubmit} className="space-y-5">
-        <Input
-          label="Repository URL"
-          placeholder="https://github.com/you/your-repo"
-          value={value.repoUrl}
-          onChange={(e) => patch({ repoUrl: e.target.value })}
-        />
+       <div className="space-y-3">
+  <Input
+    label="Repository URL"
+    placeholder="https://github.com/you/your-repo"
+    value={value.repoUrl}
+    onChange={(e) => patch({ repoUrl: e.target.value })}
+  />
+
+  <Button
+    type="button"
+    variant="secondary"
+    onClick={handleImportRepository}
+    disabled={isImporting}
+    className="w-full"
+  >
+    {isImporting ? "Importing Repository..." : "Import Repository"}
+  </Button>
+</div>
         <div className="grid gap-5 sm:grid-cols-2">
           <Input
             label="Project name"
